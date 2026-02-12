@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const connectDB = require('./config/db.js')
+const taskRoutes = require('./routes/taskRoutes.js');
 require('dotenv').config();
 
 const app = express();
@@ -10,6 +11,7 @@ connectDB();
 
 app.use(cors());
 app.use(express.json());
+app.use('/api/tasks', taskRoutes);
 
 app.get('/', (req, res) => {
     res.send('TaskMaster is running');
