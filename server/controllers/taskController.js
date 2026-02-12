@@ -28,7 +28,45 @@ const createTask = async (req, res) => {
     }
 };
 
+const updateTask = async (req, res) => {
+    try {
+        const task = await Task.findById(req.params.id);
+
+        if (!task) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+
+        const updatedTask = await Task.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
+
+        res.status(200).json(updatedTask);
+    } catch (error) {
+        res.send(400).json({ message: error.message });
+    }
+};
+
+const deleteTask = async (req, res) => {
+    try {
+        const task = await Task.findById(req.params.id);
+
+        if (!task) {
+            return res.send(404).json({ message: 'Task not found' });
+        }
+
+        await task.deleteOne();
+
+        res.status(200).json({ id: req.params.id });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
+
 module.exports = {
     getTasks,
-    createTask
+    createTask,
+    updateTask,
+    deleteTask
 };
