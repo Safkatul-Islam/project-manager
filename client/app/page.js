@@ -1,3 +1,5 @@
+import AddTask from "./AddTask";
+
 async function getTasks() {
   const res = await fetch('http://localhost:5000/api/tasks', {
     cache: 'no-store'
@@ -16,6 +18,8 @@ export default async function Home() {
   return (
     <main className="max-w-xl mx-auto mt-10 p-4">
       <h1 className="text-3xl font-bold text-center mb-8">TaskMaster</h1>
+
+      <AddTask />
 
       {/* 3. Render the Tasks */}
       <div className="space-y-4">
